@@ -1,0 +1,90 @@
+package accountrequest
+
+import (
+	"banking_system/internal/domain/account"
+	accountrequest "banking_system/internal/domain/accountrequest"
+	"banking_system/internal/domain/user"
+
+	"github.com/google/uuid"
+)
+
+type AccountRequestService struct {
+	requests accountrequest.AccountRequestRepository
+	users user.UserRepository
+	accounts account.AccountRepsitory
+}
+
+func NewAccountRequestService(
+	requestRepo accountrequest.AccountRequestRepository,
+	userRepo user.UserRepository,
+	accountRepo account.AccountRepsitory,
+) *AccountRequestService {
+	return &AccountRequestService{
+		requests: requestRepo,
+		users: userRepo,
+		accounts: accountRepo,
+	}
+}
+
+func (a *AccountRequestService) ApproveRequest(managerID, requestID uuid.UUID) error {
+	manager, err := a.users.FindByID(managerID)
+	if err != nil {
+		return err
+	}
+	if !manager.IsManager() {
+		return user.ErrUnauthorized
+	}
+
+	request, err := a.requests.FindByID(requestID)
+	if err != nil {
+		return err
+	}
+	if err := request.Approve(managerID); err != nil {
+		return err
+	}
+	
+
+	// account creation (manager approval follows creation of an account)
+	newAccount, err := account.New(request.UserID, request.AccountType)
+
+	if err != nil {
+		return err
+	}
+	if err := a.accounts.Save(*newAccount); err != nil {
+		return err
+	}
+	request.AccountID = &newAccount.ID
+	
+	// create customer account for the user
+	customer, err := a.users.FindByID(request.UserID)
+	if err != nil {
+		return err
+	}
+	if err := customer.PromoteToCustomer(); err != nil {
+		return err
+	}
+	if err := a.users.Update(customer); err != nil {
+		return err
+	}
+
+	return a.requests.Update(request)
+}
+
+func (a *AccountRequestService) RejectRequest(managerID, accountID uuid.UUID) error {
+	manager, err := a.users.FindByID(managerID)
+	if err != nil {
+		return err
+	}
+	if !manager.IsManager() {
+		return user.ErrUnauthorized
+	}
+
+	request, err := a.requests.FindByID(accountID)
+	if err != nil {
+		return err
+	}
+	if err := request.Reject(managerID); err != nil {
+		return err
+	}
+	return a.requests.Update(request)
+}
