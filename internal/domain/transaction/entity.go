@@ -35,7 +35,9 @@ const (
     Reversed
 )
 
-func New(fromAccountID, toAccountID uuid.UUID, refNumber string, transactionType TransactionType, amount int, description string) (*Transaction, error) {
+func New(fromAccountID, toAccountID uuid.UUID, transactionType TransactionType, amount int, description string) (*Transaction, error) {
+	refNumber := uuid.NewString()
+	
 	if amount <= 0 {
 		return nil, ErrInvalidAmount
 	}

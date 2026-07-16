@@ -1,0 +1,73 @@
+package cli
+
+import (
+	"fmt"
+	"time"
+	"github.com/briandowns/spinner"
+)
+
+func ShowBanner() {
+
+	fmt.Print(`
+██████╗ ███████╗██╗   ██╗███╗   ███╗ █████╗ ██╗  ██╗
+██╔══██╗██╔════╝██║   ██║████╗ ████║██╔══██╗██║ ██╔╝
+██║  ██║█████╗  ██║   ██║██╔████╔██║███████║█████╔╝
+██║  ██║██╔══╝  ╚██╗ ██╔╝██║╚██╔╝██║██╔══██║██╔═██╗
+██████╔╝███████╗ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║██║  ██╗
+╚═════╝ ╚══════╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+`)
+
+	Divider()
+
+	fmt.Println("Secure • Reliable • Modern Banking Platform")
+
+	fmt.Println()
+
+	fmt.Println("Version : v1.0.0")
+	fmt.Println("Build   : 2026.07.15")
+	fmt.Println("Powered : Go 1.25")
+
+	Divider()
+}
+
+
+func Loading(message string) {
+
+    s := spinner.New(
+        spinner.CharSets[14],
+        70*time.Millisecond,
+    )
+
+    s.Suffix = " " + message
+
+    s.Start()
+
+    time.Sleep(500 * time.Millisecond)
+
+    s.Stop()
+}
+
+func ExitBanner() {
+
+	Divider()
+
+	fmt.Println("Thank you for using")
+
+	fmt.Println()
+
+	fmt.Println(`
+██████╗ ███████╗██╗   ██╗███╗   ███╗ █████╗ ██╗  ██╗
+██╔══██╗██╔════╝██║   ██║████╗ ████║██╔══██╗██║ ██╔╝
+██║  ██║█████╗  ██║   ██║██╔████╔██║███████║█████╔╝
+██║  ██║██╔══╝  ╚██╗ ██╔╝██║╚██╔╝██║██╔══██║██╔═██╗
+██████╔╝███████╗ ╚████╔╝ ██║ ╚═╝ ██║██║  ██║██║  ██╗
+╚═════╝ ╚══════╝  ╚═══╝  ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ `)
+
+	fmt.Println()
+
+	PrintSuccess("Your session has ended securely.")
+
+	PrintInfo("Have a productive day.")
+
+	Divider()
+}

@@ -88,3 +88,27 @@ func (a *AccountRequestService) RejectRequest(managerID, accountID uuid.UUID) er
 	}
 	return a.requests.Update(request)
 }
+
+func (s *AccountRequestService) Submit(
+	userID uuid.UUID,
+	accountType account.AccountType,
+) error {
+
+	request := accountrequest.New(userID, accountType)
+
+	return s.requests.Save(*request)
+}
+
+func (s *AccountRequestService) PendingRequests() ([]accountrequest.AccountRequest, error) {
+	var pendingRequests []accountrequest.AccountRequest
+	requests, err := s.requests.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	for _, req := range requests {
+		if req.Status == accountrequest.Pending {
+			pendingRequests = append(pendingRequests, req)
+		}
+	}
+	return pendingRequests, nil
+}

@@ -23,7 +23,7 @@ func (a *AuthService) Authenticate(email string, password string) (*user.User, e
 		return nil, err
 	}
 	
-	if !verifyPassword(user.PasswordHash, password) {
+	if !verifyPassword(password, user.PasswordHash) {
 		return nil, ErrInvalidUserCredentials
 	} 
 	return &user, nil

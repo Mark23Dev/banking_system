@@ -22,6 +22,20 @@ func (a *AccountService) CreateNewAccount(customerID uuid.UUID, accountType acco
 	return a.repo.Save(*acct)
 }
 
+func (a *AccountService) AccountsByCustomer(customerID uuid.UUID) ([]account.Account, error) {
+	var customerAccts []account.Account
+	accts, err := a.repo.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	for _,acct := range accts {
+		if acct.CustomerID == customerID {
+			customerAccts = append(customerAccts, acct)
+		}
+	}
+	return customerAccts, nil
+}
+
 func (a *AccountService) DepositToAccount(accountID uuid.UUID, amount int) error {
 	acct, err := a.repo.FindByID(accountID)
 	if err != nil {
