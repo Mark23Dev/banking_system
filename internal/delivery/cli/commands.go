@@ -23,6 +23,15 @@ func (c *CLI) registerCommands() {
 
 		"accounts": c.accounts,
 		"balance": c.balance,
+
+		// admin requests
+		"makemanager": c.makeManager,
+
+		// customer
+		"deposit": c.deposit,
+		"withdraw": c.withdraw,
+		"transfer": c.transfer,
+		"statement": c.statement,
 	}
 }
 

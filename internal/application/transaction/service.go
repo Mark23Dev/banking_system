@@ -4,7 +4,6 @@ import (
 	"banking_system/internal/domain/account"
 	"banking_system/internal/domain/transaction"
 
-	"github.com/google/uuid"
 )
 
 type TransactionService struct {
@@ -20,16 +19,16 @@ func NewTransactionService(transactionRepo transaction.TransactionRepository, ac
 }
 
 func (s *TransactionService) Transfer(
-    fromAccountID uuid.UUID,
-    toAccountID uuid.UUID,
+    fromAccountNumber string,
+    toAccountNumber string,
     amount int,
     description string,
 ) error {
-	sourceAcct, err := s.accounts.FindByID(fromAccountID)
+	sourceAcct, err := s.accounts.FindByAccountNumber(fromAccountNumber)
 	if err != nil {
 		return  err
 	}
-	receivingAcct, err := s.accounts.FindByID(toAccountID)
+	receivingAcct, err := s.accounts.FindByAccountNumber(toAccountNumber)
 	if err != nil {
 		return err
 	}
@@ -45,7 +44,7 @@ func (s *TransactionService) Transfer(
 		return err
 	}
 
-	txn, err := transaction.New(fromAccountID, toAccountID, transaction.Transfer, amount, description)
+	txn, err := transaction.New(fromAccountNumber, toAccountNumber, transaction.Transfer, amount, description)
 	if err != nil {
 		return err
 	}

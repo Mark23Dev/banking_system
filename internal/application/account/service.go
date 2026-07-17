@@ -36,8 +36,8 @@ func (a *AccountService) AccountsByCustomer(customerID uuid.UUID) ([]account.Acc
 	return customerAccts, nil
 }
 
-func (a *AccountService) DepositToAccount(accountID uuid.UUID, amount int) error {
-	acct, err := a.repo.FindByID(accountID)
+func (a *AccountService) DepositToAccount(accountNumber string, amount int) error {
+	acct, err := a.repo.FindByAccountNumber(accountNumber)
 	if err != nil {
 		return err
 	}
@@ -48,8 +48,8 @@ func (a *AccountService) DepositToAccount(accountID uuid.UUID, amount int) error
 	return a.repo.Update(acct)
 }
 
-func (a *AccountService) WithdrawFromAccount(accountID uuid.UUID, amount int) error {
-	acct, err := a.repo.FindByID(accountID)
+func (a *AccountService) WithdrawFromAccount(accountNumber string, amount int) error {
+	acct, err := a.repo.FindByAccountNumber(accountNumber)
 	if err != nil {
 		return err
 	}
@@ -60,8 +60,8 @@ func (a *AccountService) WithdrawFromAccount(accountID uuid.UUID, amount int) er
 }
 
 
-func (a *AccountService) FreezeAccount(accountID uuid.UUID) error {
-	acct, err := a.repo.FindByID(accountID)
+func (a *AccountService) FreezeAccount(accountNumber string) error {
+	acct, err := a.repo.FindByAccountNumber(accountNumber)
 	if err != nil {
 		return err
 	}
@@ -73,8 +73,8 @@ func (a *AccountService) FreezeAccount(accountID uuid.UUID) error {
 
 }
 
-func (a *AccountService) ActivateAccount(accountID uuid.UUID) error {
-	acct, err := a.repo.FindByID(accountID)
+func (a *AccountService) ActivateAccount(accountNumber string) error {
+	acct, err := a.repo.FindByAccountNumber(accountNumber)
 	if err != nil {
 		return err
 	}
@@ -86,8 +86,8 @@ func (a *AccountService) ActivateAccount(accountID uuid.UUID) error {
 
 }
 
-func (a *AccountService) CloseAccount(accountID uuid.UUID) error {
-	acct, err := a.repo.FindByID(accountID)
+func (a *AccountService) CloseAccount(accountNumber string) error {
+	acct, err := a.repo.FindByAccountNumber(accountNumber)
 	if err != nil {
 		return err
 	}
@@ -98,3 +98,11 @@ func (a *AccountService) CloseAccount(accountID uuid.UUID) error {
 	return a.repo.Update(acct)
 }
 
+func (a *AccountService) Statement(accountNumber string) (*account.Account, error) {
+	acc, err := a.repo.FindByAccountNumber(accountNumber)
+	if err != nil {
+		return nil, err
+	}
+
+	return &acc, nil
+}

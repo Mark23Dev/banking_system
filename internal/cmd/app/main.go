@@ -7,12 +7,14 @@ import (
 	"banking_system/internal/application/session"
 	"banking_system/internal/application/transaction"
 	"banking_system/internal/application/user"
+	"banking_system/internal/bootstrap"
 	"banking_system/internal/config"
 	"banking_system/internal/delivery/cli"
 	accountrequeststorage "banking_system/internal/storage/filestorage/accountrequest"
 	accountstorage "banking_system/internal/storage/filestorage/accounts"
 	transactionstorage "banking_system/internal/storage/filestorage/transactions"
 	userstorage "banking_system/internal/storage/filestorage/users"
+	"log"
 )
 
 func main() {
@@ -20,6 +22,9 @@ func main() {
 
 	// storage
 	userRepo := userstorage.NewFileUserStore(cfg.UsersFile)
+		if err := bootstrap.SeedAdmin(userRepo); err != nil {
+		log.Fatal(err)
+	}
 	accountRepo := accountstorage.NewFileAccountsStore(cfg.AccountsFile)
 	accountRequestRepo := accountrequeststorage.NewFileAccountRequestsStore(cfg.AccountRequestsFile)
 	transactionRepo := transactionstorage.NewFileTransactionsStore(cfg.TransactionsFile)

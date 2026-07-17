@@ -4,6 +4,7 @@ import (
 	"banking_system/internal/domain/account"
 	accountrequest "banking_system/internal/domain/accountrequest"
 	"banking_system/internal/domain/user"
+	"fmt"
 
 	"github.com/google/uuid"
 )
@@ -27,6 +28,7 @@ func NewAccountRequestService(
 }
 
 func (a *AccountRequestService) ApproveRequest(managerID, requestID uuid.UUID) error {
+	fmt.Println("Before approve:")
 	manager, err := a.users.FindByID(managerID)
 	if err != nil {
 		return err
@@ -34,11 +36,13 @@ func (a *AccountRequestService) ApproveRequest(managerID, requestID uuid.UUID) e
 	if !manager.IsManager() {
 		return user.ErrUnauthorized
 	}
+	
 
 	request, err := a.requests.FindByID(requestID)
 	if err != nil {
 		return err
 	}
+	
 	if err := request.Approve(managerID); err != nil {
 		return err
 	}
@@ -60,6 +64,7 @@ func (a *AccountRequestService) ApproveRequest(managerID, requestID uuid.UUID) e
 	if err != nil {
 		return err
 	}
+	customer.Approve()
 	if err := customer.PromoteToCustomer(); err != nil {
 		return err
 	}
@@ -93,6 +98,14 @@ func (s *AccountRequestService) Submit(
 	userID uuid.UUID,
 	accountType account.AccountType,
 ) error {
+	usr, err := s.users.FindByID(userID)
+	if err != nil {
+		return err
+	}
+
+	if !usr.IsAccepted() {
+		return user.ErrUserNotApproved
+	}
 
 	request := accountrequest.New(userID, accountType)
 

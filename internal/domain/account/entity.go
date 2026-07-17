@@ -36,6 +36,34 @@ const (
 	Business
 )
 
+func (t AccountType) String() string {
+	switch t {
+	case Checking:
+		return "Checking"
+	case Savings:
+		return "Savings"
+	case Business:
+		return "Business"
+	case Specialty:
+		return "Specialty"
+	default:
+		return "Unknown"
+	}
+}
+
+func (s Status) String() string {
+	switch s {
+	case Active:
+		return "Active"
+	case Frozen:
+		return "Frozen"
+	case Closed:
+		return "Closed"
+	default:
+		return "Unknown"
+	}
+}
+
 func GenerateAccountNumber(digits int) (string, error) {
 	// Set the bounds for random number generation (e.g., for 10 digits, max is 9999999999)
 	maxLimit := new(big.Int)

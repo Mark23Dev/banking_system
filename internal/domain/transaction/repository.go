@@ -6,5 +6,5 @@ type TransactionRepository interface {
 	Save(transaction Transaction) error
 	FindByID(id uuid.UUID) (Transaction, error)
 	FindAll()([]Transaction, error)
-	TransactionsByAccount(accountID uuid.UUID) ([]Transaction, error)
+	TransactionsByAccount(accountNumber string) ([]Transaction, error)
 }

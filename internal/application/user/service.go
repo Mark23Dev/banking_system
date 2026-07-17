@@ -79,3 +79,10 @@ func (u *UserService) CreateCustomerAccount(managerID, userID uuid.UUID) error {
 	return u.repo.Update(usr)
 }
 
+func (u *UserService) FindByUsername(name string) (*user.User, error) {
+	user, err := u.repo.FindByUsername(name)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}

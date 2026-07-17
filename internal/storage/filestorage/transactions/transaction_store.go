@@ -55,7 +55,7 @@ func (f *FileTransactionsStore) FindAll() ([]transaction.Transaction, error) {
 	return transactions, nil
 }
 
-func (f *FileTransactionsStore) TransactionsByAccount(accountID uuid.UUID) ([]transaction.Transaction, error) {
+func (f *FileTransactionsStore) TransactionsByAccount(accountNumber string) ([]transaction.Transaction, error) {
 	transactions, err := f.FindAll()
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (f *FileTransactionsStore) TransactionsByAccount(accountID uuid.UUID) ([]tr
 	var result []transaction.Transaction
 
 	for _, tx := range transactions {
-		if tx.FromAccountID == accountID || tx.ToAccountID == accountID {
+		if tx.FromAccountNumber == accountNumber || tx.ToAccountNumber == accountNumber {
 			result = append(result, tx)
 		}
 	}

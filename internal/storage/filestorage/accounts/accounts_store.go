@@ -55,6 +55,21 @@ func (f *FileAccountsStore) FindByID(id uuid.UUID) (account.Account, error) {
 	return account.Account{}, errors.New("account not found")
 }
 
+func (f *FileAccountsStore) FindByAccountNumber(accountNumber string) (account.Account, error) {
+	accounts, err := f.FindAll()
+	if err != nil {
+		return account.Account{}, err
+	}
+
+	for _, acct := range accounts {
+		if acct.AccountNumber == accountNumber {
+			return acct, nil
+		}
+	}
+
+	return account.Account{}, errors.New("account not found")
+}
+
 func (f *FileAccountsStore) Update(updated account.Account) error {
 	accounts, err := f.FindAll()
 	if err != nil {
