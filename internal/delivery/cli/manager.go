@@ -43,7 +43,6 @@ func (c *CLI) pendingRequests(args []string) error {
 }
 
 func (c *CLI) approveRequest(args []string) error {
-	fmt.Println("CLI approveRequest called")
 	if len(args) != 1 {
 		PrintInfo("Usage: approve <number>")
 		return nil
@@ -58,18 +57,15 @@ func (c *CLI) approveRequest(args []string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("before")
-	fmt.Printf("index=%d, len(requests)=%d\n", index, len(requests))
+
 	if index < 1 || index > len(requests) {
 		return errors.New("invalid request number")
 	}
-	fmt.Println("after")
 	
 	request := requests[index-1]
 	
 
 	manager := c.session.CurrentUser()
-	fmt.Println("About to call service")
 	if err := c.requests.ApproveRequest(
 		manager.ID,
 		request.ID,

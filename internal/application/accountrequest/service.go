@@ -4,7 +4,6 @@ import (
 	"banking_system/internal/domain/account"
 	accountrequest "banking_system/internal/domain/accountrequest"
 	"banking_system/internal/domain/user"
-	"fmt"
 
 	"github.com/google/uuid"
 )
@@ -28,7 +27,6 @@ func NewAccountRequestService(
 }
 
 func (a *AccountRequestService) ApproveRequest(managerID, requestID uuid.UUID) error {
-	fmt.Println("Before approve:")
 	manager, err := a.users.FindByID(managerID)
 	if err != nil {
 		return err
