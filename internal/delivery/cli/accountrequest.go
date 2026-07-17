@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"banking_system/internal/domain/accountrequest"
 	"errors"
 	"fmt"
 )
@@ -13,6 +12,7 @@ func (c *CLI) requestAccount(args []string) error {
 	}
 
 	current := c.session.CurrentUser()
+	// fmt.Println(c.session.CurrentUser())
 
 	if current.IsCustomer() {
 		PrintWarning("You already have a customer account.")
@@ -40,12 +40,10 @@ func (c *CLI) requestAccount(args []string) error {
 		return err
 	}
 
-	request := accountrequest.New(
+	if err := c.requests.Submit(
 		current.ID,
 		accountType,
-	)
-
-	if err := c.requests.Submit(*request.AccountID, request.AccountType); err != nil {
+	); err != nil {
 		return err
 	}
 
