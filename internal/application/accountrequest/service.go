@@ -92,22 +92,13 @@ func (a *AccountRequestService) RejectRequest(managerID, accountID uuid.UUID) er
 	return a.requests.Update(request)
 }
 
-func (s *AccountRequestService) Submit(
+func (a *AccountRequestService) Submit(
 	userID uuid.UUID,
 	accountType account.AccountType,
 ) error {
-	usr, err := s.users.FindByID(userID)
-	if err != nil {
-		return err
-	}
-
-	if !usr.IsAccepted() {
-		return user.ErrUserNotApproved
-	}
-
 	request := accountrequest.New(userID, accountType)
 
-	return s.requests.Save(*request)
+	return a.requests.Save(*request)
 }
 
 func (s *AccountRequestService) PendingRequests() ([]accountrequest.AccountRequest, error) {
