@@ -115,7 +115,7 @@ cd banking_system
 Run
 
 ```bash
-go run ./cmd/banking
+go run ./internal/cmd/app
 ```
 
 ---
