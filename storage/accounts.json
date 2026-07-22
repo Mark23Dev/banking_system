@@ -1,3 +1,12 @@
 [
-
+ {
+  "ID": "0bebcc9d-354e-41a7-97fd-3ccaa17db060",
+  "CustomerID": "d2ba9738-3d22-48f3-9ba1-135fbd41f796",
+  "AccountType": 0,
+  "AccountNumber": "7582869461",
+  "Status": 0,
+  "Balance": 800,
+  "CreatedAt": "2026-07-20T18:31:57.098585358+03:00",
+  "UpdatedAt": "2026-07-20T18:36:46.964605975+03:00"
+ }
 ]

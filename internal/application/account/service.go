@@ -14,12 +14,12 @@ func NewAccountService(r account.AccountRepsitory) *AccountService {
 	return &AccountService{repo: r}
 }
 
-func (a *AccountService) CreateNewAccount(customerID uuid.UUID, accountType account.AccountType) error {
+func (a *AccountService) CreateNewAccount(customerID uuid.UUID, accountType account.AccountType) (*account.Account, error) {
 	acct, err := account.New(customerID, accountType)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return a.repo.Save(*acct)
+	return acct, a.repo.Save(*acct)
 }
 
 func (a *AccountService) AccountsByCustomer(customerID uuid.UUID) ([]account.Account, error) {

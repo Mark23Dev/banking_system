@@ -1,3 +1,35 @@
 [
-
+ {
+  "ID": "348fb2da-83bf-47fb-8a9f-e805c0698ee9",
+  "Username": "admin",
+  "PasswordHash": "$2a$10$ld5OghlkIhAAv9H0yLXXwOraQtjNEz2ccU9KUGsSu9m.FDQ9AA0P2",
+  "PINHash": "$2a$10$ozAYuLbi6tb3IotimT.qyuDoBOoCEsOyznMo4vvqSIl0ZMxodySNG",
+  "Role": 0,
+  "Status": 0,
+  "Email": "admin@devmak.bank",
+  "CreatedAt": "2026-07-20T12:59:28.815973311+03:00",
+  "UpdatedAt": "2026-07-20T12:59:28.815975832+03:00"
+ },
+ {
+  "ID": "a80893a3-6fa9-47da-b7fb-40167dedb08d",
+  "Username": "alice",
+  "PasswordHash": "$2a$10$/.rqoW7Tij0y2g0NnjwOX.HEXB86asHkNTAf.XEWVZiRfgn56nNJ.",
+  "PINHash": "$2a$10$fh86sKTthy1KQIw5DTYASeMDRxC17RT9bFp8cJL0WzgWRDRd.fTXS",
+  "Role": 3,
+  "Status": 2,
+  "Email": "alice@gmail.com",
+  "CreatedAt": "2026-07-20T18:17:19.969655962+03:00",
+  "UpdatedAt": "2026-07-20T18:18:03.293832117+03:00"
+ },
+ {
+  "ID": "d2ba9738-3d22-48f3-9ba1-135fbd41f796",
+  "Username": "mutiso",
+  "PasswordHash": "$2a$10$SWoXvso4VHVMHzZuVEMTHe9z7JGCogHm2PZYd4qV0yyd3p1LVmyVe",
+  "PINHash": "$2a$10$j4q0zKmerlmNbItVe3.ev.0KmSkWa8UncsBFrgu.WmThVbiRshUry",
+  "Role": 2,
+  "Status": 0,
+  "Email": "mutiso@gmail.com",
+  "CreatedAt": "2026-07-20T18:30:18.534819369+03:00",
+  "UpdatedAt": "2026-07-20T18:31:57.102219664+03:00"
+ }
 ]
