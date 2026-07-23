@@ -11,6 +11,10 @@ func (c *CLI) accounts(args []string) error {
 
 	user := c.session.CurrentUser()
 
+	if user == nil {
+		return errors.New("please login first")
+	}
+
 	accts, err := c.accts.AccountsByCustomer(user.ID)
 	if err != nil {
 		return err

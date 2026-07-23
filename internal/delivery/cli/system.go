@@ -43,7 +43,7 @@ func (c *CLI) help(args []string) error {
 	fmt.Println("────────────────────────────────────")
 	fmt.Println("approve             Approve account request")
 	fmt.Println("reject              Reject account request")
-	fmt.Println("users               View users")
+	// fmt.Println("users               View users")
 	fmt.Println("makemanager         Promote user to manager")
 
 	fmt.Println()
