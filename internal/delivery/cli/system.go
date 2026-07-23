@@ -34,7 +34,7 @@ func (c *CLI) help(args []string) error {
 
 	fmt.Println("Requests")
 	fmt.Println("────────────────────────────────────")
-	fmt.Println("request             Request a new bank account")
+	fmt.Println("request-account     Request a new bank account")
 	fmt.Println("notifications       View notifications")
 
 	fmt.Println()
